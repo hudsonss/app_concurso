@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Concursos</title>
+</head>
+<body>
+    <h1>Lista de Concursos</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Banca</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for concurso in concursos %}
+            <tr>
+              <td>{{ concurso.id }}</td>
+              <td>{{ concurso.nome }}</td>
+              <td>{{ concurso.data }}</td>
+              <td>{{ concurso.banca }}</td>
+              <td>
+                <a href="/editar/{{ concurso.id }}">Editar</a>
+                <form action= "/delete/{{ concurso.id }}" method="POST" style="display: inline;">
+                  <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="/">Cadastrar novo Concurso</a>
+</body>
+</html>
