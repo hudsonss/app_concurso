@@ -1,39 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Concursos</title>
 </head>
+
 <body>
-    <h1>Lista de Concursos</h1>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Data</th>
-            <th>Banca</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for concurso in concursos %}
-            <tr>
-              <td>{{ concurso.id }}</td>
-              <td>{{ concurso.nome }}</td>
-              <td>{{ concurso.data }}</td>
-              <td>{{ concurso.banca }}</td>
-              <td>
-                <a href="/editar/{{ concurso.id }}">Editar</a>
-                <form action= "/delete/{{ concurso.id }}" method="POST" style="display: inline;">
-                  <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
-                </form>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a href="/">Cadastrar novo Concurso</a>
+  <h1>Lista de Concursos</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Data</th>
+        <th>Banca</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for concurso in concursos %}
+      <tr>
+        <td>{{ concurso.id }}</td>
+        <td>{{ concurso.nome }}</td>
+        <td>{{ concurso.data }}</td>
+        <td>{{ concurso.banca }}</td>
+        <td>
+          <a href="/editar/{{ concurso.id }}">Editar</a>
+          <form action="/delete/{{ concurso.id }}" method="POST" style="display: inline;">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <form method="GET" action="{{ url_for('listar_concursos') }}">
+    <label for="filter">Filtrar por:</label>
+    <select name="filter" id="filter">
+      <option value="nome">Nome</option>
+      <option value="banca">Banca</option>
+    </select>
+    <input type="text" name="query" placeholder="Buscar..." value="{{ request.args.get('query', '') }}">
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <a href="/">Cadastrar novo Concurso</a>
+
+  <div>
+    {% if concursos.has_prev %}
+    <a href="{{ url_for('listar_concursos', page=concursos.prev_num) }}">Página Anterior</a>
+    {% endif %}
+
+    <span>Página {{ concursos.page }} de {{ concursos.pages }}</span>
+
+    {% if concursos.has_next %}
+    <a href="{{ url_for('listar_concursos', page=concursos.next_num) }}">Próxima Página</a>
+    {% endif %}
+  </div>
 </body>
+
 </html>

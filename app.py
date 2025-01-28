@@ -42,7 +42,7 @@ def cadastro():
     return render_template("index.html")
 
 #Rota para listagem dos concursos
-@concursos_bp.route("/concursos", methods= ["GET"])
+@app.route("/concursos", methods= ["GET"])
 def listar_concursos():
     search = request.args.get('search')
     page = request.args.get('page', 1, type=int)
@@ -57,7 +57,7 @@ def listar_concursos():
     return render_template("concursos.html", concursos=concursos)
 
 #Rota para exclusão de concursos
-@concursos_bp.route("/delete/<int:id>", methods=["GET", "POST"])
+@app.route("/delete/<int:id>", methods=["GET", "POST"])
 def excluir_concurso(id):
     concurso = Concurso.query.get_or_404(id)
     db.session.delete(concurso)
@@ -66,7 +66,7 @@ def excluir_concurso(id):
     return redirect(url_for("listar_concursos"))
 
 #Rota para edição de concursos
-@concursos_bp.route("/editar/<int:id>", methods=["GET", "POST"])
+@app.route("/editar/<int:id>", methods=["GET", "POST"])
 def editar_concurso(id):
     concurso = Concurso.query.get_or_404(id)
 
