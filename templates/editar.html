@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Concurso</title>
+</head>
+<body>
+  <h1>Editar Concurso</h1>
+
+  <form method="POST">
+    <div>
+      <label for="concurso-name">Nome do concurso</label>
+      <input type="text" id="concurso-name" name="concurso_name" value="{{ concurso.nome }}" required>
+    </div>
+    <div>
+      <label for="concurso-date">Data da prova</label>
+      <input type="date" id="concurso-date" name="concurso_date" value="{{ concurso.data }}" required>
+    </div>
+    <div>
+        <label for="concurso-banca">Banca examinadora</label>
+        <input type="text" id="concurso-banca" name="concurso_banca" value="{{ concurso.banca }}" required>
+    </div>
+
+    <button type="submit">Salvar</button>
+  </form>
+
+  <a href="/concursos">Voltar</a>
+</body>
+</html>
