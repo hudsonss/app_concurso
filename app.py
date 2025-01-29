@@ -33,6 +33,20 @@ class Concurso(db.Model):
     banca = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
 
+# Modelo da tabela de disciplina
+class Disciplina(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+
+# Modelo da tabela de categoria
+class Caterogia_concurso(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+
+# Modelo da tabela de assunto
+class Assunto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
 
 # Criar o banco de dados
 with app.app_context():
