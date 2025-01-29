@@ -37,29 +37,34 @@
     </tbody>
   </table>
 
-  <form method="GET" action="{{ url_for('listar_concursos') }}">
-    <label for="filter">Filtrar por:</label>
-    <select name="filter" id="filter">
-      <option value="nome">Nome</option>
-      <option value="banca">Banca</option>
-    </select>
-    <input type="text" name="query" placeholder="Buscar..." value="{{ request.args.get('query', '') }}">
-    <button type="submit">Filtrar</button>
-  </form>
+  
+
+<form method="get">
+  <input type="text" name="search" placeholder="Pesquisar concursos..." value="{{ request.args.get('search', '') }}">
+  <button type="submit">Pesquisar</button>
+</form>
+
+  <!-- {% if concurso %}
+    <p>Resultado</p>
+    
+  {% else %}
+    <p> nenhum  concurso encontrado.</p>
+  {% endif %} -->
+
+
+<div>
+  {% if concursos.has_prev %}
+    <a href="{{ url_for('listar_concursos', page=concursos.prev_num, search=request.args.get('search')) }}">Anterior</a>
+  {% endif %}
+  <span>Página {{ concursos.page }} de {{ concursos.pages }}</span>
+  {% if concursos.has_next %}
+    <a href="{{ url_for('listar_concursos', page=concursos.next_num, search=request.args.get('search')) }}">Próxima</a>
+  {% endif %}
+</div>
 
   <a href="/">Cadastrar novo Concurso</a>
 
-  <div>
-    {% if concursos.has_prev %}
-    <a href="{{ url_for('listar_concursos', page=concursos.prev_num) }}">Página Anterior</a>
-    {% endif %}
 
-    <span>Página {{ concursos.page }} de {{ concursos.pages }}</span>
-
-    {% if concursos.has_next %}
-    <a href="{{ url_for('listar_concursos', page=concursos.next_num) }}">Próxima Página</a>
-    {% endif %}
-  </div>
 </body>
 
 </html>
