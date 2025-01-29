@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Concursos</title>
+</head>
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <p class="flash-message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <h1>Cadastro de Concursos</h1>
+    <form method="POST">
+        <div>
+            <label for="concurso-name">Nome do concurso</label>
+            <input type="text" id="concurso-name" name="concurso_name" required>
+        </div>
+        <div>
+            <label for="concurso-date">Data da prova</label>
+            <input type="date" id="concurso-date" name="concurso_date" required>
+        </div>
+        <div>
+            <label for="concurso-banca">Banca examinadora</label>
+            <input type="text" id="concurso-banca" name="concurso_banca" required>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <a href="/logout">Sair</a>
+</body>
+</html>

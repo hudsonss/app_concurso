@@ -7,17 +7,16 @@
   <title>Editar Concurso</title>
 </head>
 <body>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <div class="alert-container">
-      {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
+  
+  {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+          <div>
+              {% for category, message in messages %}
+                  <p class="flash-message {{ category }}">{{ message }}</p>
+              {% endfor %}
+          </div>
+      {% endif %}
+  {% endwith %}
   
   <h1>Editar Concurso</h1>
 
@@ -39,5 +38,6 @@
   </form>
 
   <a href="/concursos">Voltar</a>
+  <a href="/logout">Sair</a>
 </body>
 </html>

@@ -10,14 +10,13 @@
 
 <body>
 
-  
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
-            <ul>
+            <div>
                 {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
+                    <p class="flash-message {{ category }}">{{ message }}</p>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
     {% endwith %}
   
@@ -31,7 +30,8 @@
     <button type="submit">Entrar</button>
   </form>
   <a href="/register">Não tem uma conta? Registre-se</a>
-
+    <br>
+  <a href="/">Home</a>
 </body>
 
 </html>
