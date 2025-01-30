@@ -29,7 +29,7 @@ def cadastro():
         flash(f"Concurso '{nome}' cadastrado com sucesso!", "success")
         return redirect(url_for("concursos.listar_concursos"))
 
-    return render_template("cadastrar_concurso.html")
+    return render_template("concursos/cadastrar_concurso.html")
 
 @concursos_routes.route("/concursos")
 @login_required
@@ -46,7 +46,7 @@ def listar_concursos():
     else:
         concursos = Concurso.query.filter_by(user_id=user_id).paginate(page=page, per_page=5)
 
-    return render_template("concursos.html", concursos=concursos)
+    return render_template("concursos/concursos.html", concursos=concursos)
 
 @concursos_routes.route("/delete/<int:id>", methods=["GET", "POST"])
 @login_required
@@ -78,4 +78,4 @@ def editar_concurso(id):
         flash(f"Concurso '{nome}' atualizado com sucesso!", "success")
         return redirect(url_for("concursos.listar_concursos"))
 
-    return render_template("editar.html", concurso=concurso)
+    return render_template("concursos/editar.html", concurso=concurso)

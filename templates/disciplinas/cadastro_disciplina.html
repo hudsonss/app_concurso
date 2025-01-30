@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar Disciplina{% endblock %}
+
+{% block content %}
+   <h1>Cadastrar Disciplina</h1>
+   <form method="POST">
+       <label for="nome">Nome da Disciplina:</label>
+       <input type="text" id="nome" name="nome" required>
+       <button type="submit">Salvar</button>
+   </form>
+   <a href="{{ url_for('disciplinas.listar_disciplinas') }}">Voltar</a>
+{% endblock %}

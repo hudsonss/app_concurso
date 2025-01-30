@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disciplinas</title>
+</head>
+<body>
+
+  {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+          <div>
+              {% for category, message in messages %}
+                  <p class="flash-message {{ category }}">{{ message }}</p>
+              {% endfor %}
+          </div>
+      {% endif %}
+  {% endwith %}
+  
+  <h1>Lista de Disciplinas</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Carga Horaria</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for disciplina in disciplinas %}
+      <tr>
+        <td>{{ disciplina.id }}</td>
+        <td>{{ disciplina.nome }}</td>
+        <td>{{ disciplina.carga_horaria }}</td>
+        <td>
+          <a href="/editar/{{ disciplina.id }}">Editar</a>
+          <form action="/delete/{{ disciplina.id }}" method="POST" style="display: inline;">
+            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <form method="get">
+    <input type="text" name="search" placeholder="Pesquisar disciplinas..." value=" {{ request.args.get('search', '') }}">
+    <button type="submit">Pesquisar</button>
+  </form>  
+
+  <a href="/cadastro_disciplina">Cadastrar nova Disciplina</a>
+
+  <a href="/logout">Sair</a>
+  
+</body>
+</html>

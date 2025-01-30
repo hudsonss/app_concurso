@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Concursos{% endblock %}
+
+{% block content %}
+<h1>Lista de Concursos</h1>
+<ul>
+    {% for concurso in concursos %}
+    <li>{{ concurso.nome }} - {{ concurso.banca }} - {{ concurso.data }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

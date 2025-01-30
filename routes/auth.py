@@ -23,7 +23,7 @@ def login():
         flash("Login realizado com sucesso!", "success")
         return redirect(url_for("concursos.listar_concursos"))
 
-    return render_template("login.html")
+    return render_template("auth/login.html")
 
 @auth_routes.route("/register", methods=["GET", "POST"])
 def register():
@@ -53,7 +53,7 @@ def register():
         flash("Registro realizado com sucesso!", "success")
         return redirect(url_for("auth.login"))
 
-    return render_template("register.html")
+    return render_template("auth/register.html")
 
 @auth_routes.route("/logout")
 @login_required
