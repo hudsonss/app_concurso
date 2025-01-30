@@ -33,20 +33,46 @@ class Concurso(db.Model):
     banca = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)
 
-# Modelo da tabela de disciplina
+# Associação entre Concursos e Disciplinas (M:N)
+concurso_disciplina = db.Table(
+    'concurso_disciplina',
+    db.Column('concurso_id', db.Integer, db.ForeignKey('concurso.id'), primary_key=True),
+    db.Column('disciplina_id', db.Integer, db.ForeignKey('disciplina.id'), primary_key=True)
+)
+
+# Modelo de Categoria
+class CategoriaConcurso(db.Model):
+    __tablename__ = 'categoria_concurso'
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False, unique=True)
+
+    def __repr__(self):
+        return f'<CategoriaConcurso {self.nome}>'
+
+# Modelo de Disciplina
 class Disciplina(db.Model):
+    __tablename__ = 'disciplina'
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
+    nome = db.Column(db.String(100), nullable=False, unique=True)
 
-# Modelo da tabela de categoria
-class Caterogia_concurso(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
+    # Relacionamento com Concursos (M:N)
+    concursos = db.relationship('Concurso', secondary=concurso_disciplina, backref='disciplinas')
 
-# Modelo da tabela de assunto
+    def __repr__(self):
+        return f'<Disciplina {self.nome}>'
+
+# Modelo de Assunto
 class Assunto(db.Model):
+    __tablename__ = 'assunto'
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
+    nome = db.Column(db.String(100), nullable=False, unique=True)
+
+    # Relacionamento com Disciplina (1:N)
+    disciplina_id = db.Column(db.Integer, db.ForeignKey('disciplina.id'), nullable=False)
+    disciplina = db.relationship('Disciplina', backref='assuntos')
+
+    def __repr__(self):
+        return f'<Assunto {self.nome}>'
 
 # Criar o banco de dados
 with app.app_context():
